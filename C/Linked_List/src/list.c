@@ -14,18 +14,18 @@ struct listNode *list_create() {
 void list_destroy(struct listNode *node) {
 }
 
-struct listNode * list_addHead(struct listNode *node, void *data) {
-	struct listNode *first;
-    first = initNode(data);
-    first->next = node;
-	return first;
-}
-
 struct listNode * initNode(void *data){
     struct listNode *new = malloc(sizeof(struct listNode));
     new->data = data;
     new->next = NULL;
 	return new;
+}
+
+struct listNode * list_addHead(struct listNode *list, void *data) {
+	struct listNode *first;
+    first = initNode(data);
+    first->next = list;
+	return first;
 }
 
 int list_addTail(int val) {
@@ -58,7 +58,11 @@ int list_itemExists(int val) {
 
 /*variable length paramters
 if a pointer is an arguement, print it, otherwise, print entire list*/
-int list_print(int val) {
+int list_print(struct listNode *L, int(*print)(void *)) {
+	while (L) {
+		print(L->data);
+		L = L->next;
+	}
 	return 0;
 }
 

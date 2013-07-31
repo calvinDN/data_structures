@@ -26,3 +26,5 @@ Boolean LL_rmTail(List *);
 int LL_length(List *);
 
 Boolean LL_itemExists(List *, void *);
+
+int LL_print(List *);

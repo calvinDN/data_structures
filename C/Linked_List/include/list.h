@@ -24,4 +24,4 @@ int list_itemExists(int val);
 
 /*variable length paramters
 if a pointer is an arguement, print it, otherwise, print entire list*/
-int list_print(int val);
+int list_print(struct listNode *L, int(*print)(void *));

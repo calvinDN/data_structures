@@ -20,25 +20,29 @@ void LL_destroy(List *L) {
 		list_rmHead(L->head);
 }
 
-Boolean LL_addHead(List *L, void *data) {
-	L->head->next = list_addHead(L->head->next, data);
-    if (!LL_updateTail(L))
-        return FALSE;
-
-    return TRUE;
-}
-
+/*not working*/
 Boolean LL_updateTail(List *L){
     if (!L->head)
         return FALSE;
-    if (!L->head->next)
+
+    if (!L->head->next) {
         L->tail = L->head;
+        return TRUE;
+    }
 
     while (L->head->next->next) {
         L->head = L->head->next;
     }
     L->tail = L->head;
     
+    return TRUE;
+}
+
+Boolean LL_addHead(List *L, void *data) {
+	L->head->next = list_addHead(L->head->next, data);
+    /*if (!LL_updateTail(L))
+        return FALSE;*/
+
     return TRUE;
 }
 
@@ -64,7 +68,8 @@ Boolean LL_itemExists(List *L, void *data) {
 
 /*variable length paramters
 if a pointer is an arguement, print it, otherwise, print entire list*/
-int LL_print(int val) {
-	return 0;
+int LL_print(List *L) {
+	list_print(L->head->next, L->print);
+    return 0;
 }
 

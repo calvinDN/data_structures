@@ -21,7 +21,25 @@ void LL_destroy(List *L) {
 }
 
 Boolean LL_addHead(List *L, void *data) {
-	return FALSE;
+	L->head->next = list_addHead(L->head->next, data);
+    if (!LL_updateTail(L))
+        return FALSE;
+
+    return TRUE;
+}
+
+Boolean LL_updateTail(List *L){
+    if (!L->head)
+        return FALSE;
+    if (!L->head->next)
+        L->tail = L->head;
+
+    while (L->head->next->next) {
+        L->head = L->head->next;
+    }
+    L->tail = L->head;
+    
+    return TRUE;
 }
 
 Boolean LL_addTail(List *L, void *data) {

@@ -10,7 +10,7 @@ struct listNode *list_create();
 
 void list_destroy(struct listNode *);
 
-int list_addHead(int val);
+struct listNode * list_addHead(struct listNode *, void *);
 
 int list_addTail(int val);
 

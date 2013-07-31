@@ -9,25 +9,25 @@ OBJS     = $(OBJDIR)main.o $(OBJDIR)list.o $(OBJDIR)linkedList.o $(OBJDIR)animal
 
 all: link
 
-link: animal list linkedList main
+link: animal.o list.o linkedList.o main.o
 	$(CC) -o $(PROGNAME) $(OBJS)
 
 # MUSTDO: this should be replaced by one target and update appropriately
-main: $(SRCDIR)main.c
+main.o:
 	$(CC) $(CFLAGS) -c $(SRCDIR)main.c -o $(OBJDIR)main.o $(INCLUDES)
 
-linkedList: $(SRCDIR)linkedList.c
+linkedList.o:
 	$(CC) $(CFLAGS) -c $(SRCDIR)linkedList.c -o $(OBJDIR)linkedList.o $(INCLUDES)
 
-list: $(SRCDIR)list.c
+list.o:
 	$(CC) $(CFLAGS) -c $(SRCDIR)list.c -o $(OBJDIR)list.o $(INCLUDES)
 
-animal: $(SRCDIR)animal.c
+animal.o:
 	$(CC) $(CFLAGS) -c $(SRCDIR)animal.c -o $(OBJDIR)animal.o $(INCLUDES)
 
 clean:
 	@ rm -f $(OBJDIR)*.o
-	@ rm -f $(BINDIR)list
+	@ rm -f $(BINDIR)*
 
 run: all
 	$(PROGNAME)

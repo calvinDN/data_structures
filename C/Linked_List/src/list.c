@@ -14,8 +14,18 @@ struct listNode *list_create() {
 void list_destroy(struct listNode *node) {
 }
 
-int list_addHead(int val) {
-	return 0;
+struct listNode * list_addHead(struct listNode *node, void *data) {
+	struct listNode *first;
+    first = initNode(data);
+    first->next = node;
+	return first;
+}
+
+struct listNode * initNode(void *data){
+    struct listNode *new = malloc(sizeof(struct listNode));
+    new->data = data;
+    new->next = NULL;
+	return new;
 }
 
 int list_addTail(int val) {

@@ -14,7 +14,7 @@ struct listNode * list_addHead(struct listNode *, void *);
 
 int list_addTail(int val);
 
-void list_rmHead(struct listNode *L);
+struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *));
 
 int list_rmTail(int val);
 

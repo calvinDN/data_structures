@@ -32,16 +32,11 @@ int list_addTail(int val) {
 	return 0;
 }
 
-void list_rmHead(struct listNode *L) {
-	/*listNode *tmp;
-	if (!L->head->next) {
-		L->destroy(L->head);
-		L->head = NULL;
-	}
-
-	tmp = L->head;
-	L->head = L->head->next;
-	L->destroy(tmp);*/
+struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *)) {
+	struct listNode *tmp = L->next;
+	destroy(L->data);
+	free(L);
+	return tmp;
 }
 
 int list_rmTail(int val) {

@@ -17,7 +17,8 @@ int main() {
     LL_addHead(myList, shrimp);
     LL_addHead(myList, dalek);
     LL_print(myList);
-    
+    LL_rmHead(myList);
+    LL_print(myList);
 
 	return 0;
 }

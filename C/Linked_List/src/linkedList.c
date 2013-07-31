@@ -15,9 +15,12 @@ List * LL_create(int(*compare)(void *, void *), int(*print)(void *), void(*destr
     return newList;
 }
 
+/* User responsible for freeing their functions */
 void LL_destroy(List *L) {
 	while (L->head)
-		list_rmHead(L->head);
+		list_rmHead(L->head, L->destroy);
+
+    free(L);
 }
 
 /*not working*/
@@ -34,7 +37,7 @@ Boolean LL_updateTail(List *L){
         L->head = L->head->next;
     }
     L->tail = L->head;
-    
+
     return TRUE;
 }
 
@@ -51,7 +54,8 @@ Boolean LL_addTail(List *L, void *data) {
 }
 
 Boolean LL_rmHead(List *L) {
-	return FALSE;
+    L->head->next = list_rmHead(L->head->next, L->destroy);
+	return TRUE;
 }
 
 Boolean LL_rmTail(List *L) {

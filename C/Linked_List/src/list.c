@@ -1,6 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "list.h"
-
+#include "animal.h" /*TEMP*/
 
 struct listNode *list_create() {
 	struct listNode *new = calloc(1, sizeof(struct listNode));
@@ -11,7 +12,13 @@ struct listNode *list_create() {
 	return new;
 }
 
-void list_destroy(struct listNode *node) {
+void list_destroy(struct listNode *L, void(*destroy)(void *)) {
+	if (L->next)
+		list_destroy(L->next, destroy);
+
+	destroy(L->data);
+	free(L);
+	/* need a base case here */
 }
 
 struct listNode * initNode(void *data){
@@ -33,7 +40,11 @@ int list_addTail(int val) {
 }
 
 struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *)) {
-	struct listNode *tmp = L->next;
+	struct listNode *tmp;
+	if (!L)
+        return NULL;
+
+	tmp = L->next;
 	destroy(L->data);
 	free(L);
 	return tmp;
@@ -55,9 +66,17 @@ int list_itemExists(int val) {
 if a pointer is an arguement, print it, otherwise, print entire list*/
 int list_print(struct listNode *L, int(*print)(void *)) {
 	while (L) {
-		print(L->data);
 		L = L->next;
 	}
 	return 0;
 }
 
+struct listNode * list_getTail(struct listNode *L) {
+    struct listNode *tail = NULL;
+	if (L->next) {
+		tail = list_getTail(L->next);
+        return tail;
+	}
+
+	return L;
+}

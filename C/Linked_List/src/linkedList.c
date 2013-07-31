@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "linkedList.h"
 
 List * LL_create(int(*compare)(void *, void *), int(*print)(void *), void(*destroy)(void *)) {
@@ -16,35 +17,33 @@ List * LL_create(int(*compare)(void *, void *), int(*print)(void *), void(*destr
 }
 
 /* User responsible for freeing their functions */
-void LL_destroy(List *L) {
+/*void LL_destroy(List *L) {
 	while (L->head)
 		list_rmHead(L->head, L->destroy);
+
+    free(L);
+}*/
+
+void LL_destroy(List *L) {
+    list_destroy(L->head, L->destroy);
 
     free(L);
 }
 
 /*not working*/
 Boolean LL_updateTail(List *L){
-    if (!L->head)
-        return FALSE;
-
     if (!L->head->next) {
         L->tail = L->head;
         return TRUE;
     }
-
-    while (L->head->next->next) {
-        L->head = L->head->next;
-    }
-    L->tail = L->head;
-
+    L->tail = list_getTail(L->head->next);
     return TRUE;
 }
 
 Boolean LL_addHead(List *L, void *data) {
 	L->head->next = list_addHead(L->head->next, data);
-    /*if (!LL_updateTail(L))
-        return FALSE;*/
+    if (!LL_updateTail(L))
+        return FALSE;
 
     return TRUE;
 }
@@ -54,6 +53,8 @@ Boolean LL_addTail(List *L, void *data) {
 }
 
 Boolean LL_rmHead(List *L) {
+    /*if (!L->head->next)
+        return TRUE;*/
     L->head->next = list_rmHead(L->head->next, L->destroy);
 	return TRUE;
 }
@@ -74,6 +75,16 @@ Boolean LL_itemExists(List *L, void *data) {
 if a pointer is an arguement, print it, otherwise, print entire list*/
 int LL_print(List *L) {
 	list_print(L->head->next, L->print);
+    return 0;
+}
+
+int LL_printTail(List *L) {
+    L->print(L->tail->data);
+    return 0;
+}
+
+int LL_printHead(List *L) {
+    L->print(L->head->next->data);
     return 0;
 }
 

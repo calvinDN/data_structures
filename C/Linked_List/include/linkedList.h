@@ -28,3 +28,7 @@ int LL_length(List *);
 Boolean LL_itemExists(List *, void *);
 
 int LL_print(List *);
+
+int LL_printTail(List *L);
+
+int LL_printHead(List *L);

@@ -12,18 +12,18 @@ void list_destroy(struct listNode *, void(*destroy)(void *));
 
 struct listNode * list_addHead(struct listNode *, void *);
 
-int list_addTail(int val);
+int list_addTail(struct listNode *, void *);
 
-struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *));
+struct listNode * list_rmHead(struct listNode *, void(*destroy)(void *));
 
-int list_rmTail(int val);
+int list_rmTail(struct listNode *,  void(*destroy)(void *));
 
-int list_length(int val);
+int list_length(struct listNode *, int);
 
 int list_itemExists(int val);
 
 /*variable length paramters
 if a pointer is an arguement, print it, otherwise, print entire list*/
-int list_print(struct listNode *L, int(*print)(void *));
+int list_print(struct listNode *, int(*print)(void *));
 
-struct listNode * list_getTail(struct listNode *L);
+struct listNode * list_getTail(struct listNode *);

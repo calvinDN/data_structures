@@ -18,6 +18,12 @@ int main() {
     LL_addHead(myList, dalek);
     LL_printHead(myList);
     LL_printTail(myList);
+    LL_print(myList);
+    printf("%d\n", LL_length(myList));
+    LL_rmTail(myList);
+    LL_print(myList);
+    LL_printTail(myList);
+    printf("%d\n", LL_length(myList));
 
 	return 0;
 }

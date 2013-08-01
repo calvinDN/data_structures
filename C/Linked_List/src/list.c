@@ -35,7 +35,8 @@ struct listNode * list_addHead(struct listNode *list, void *data) {
 	return first;
 }
 
-int list_addTail(int val) {
+int list_addTail(struct listNode *tail, void *data) {
+    tail->next = initNode(data);
 	return 0;
 }
 
@@ -50,12 +51,25 @@ struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *)) {
 	return tmp;
 }
 
-int list_rmTail(int val) {
-	return 0;
+int list_rmTail(struct listNode *L,  void(*destroy)(void *)) {
+    struct listNode *tmp;
+
+	while (L->next) {
+        tmp = L;
+        L = L->next;
+    }
+
+    tmp->next = NULL;
+    destroy(L->data);
+    free(L);
+    return 0;
 }
 
-int list_length(int val) {
-	return 0;
+int list_length(struct listNode *L, int length) {
+    if (L->next)
+        return list_length(L->next, ++length);
+
+	return length;
 }
 
 int list_itemExists(int val) {
@@ -66,17 +80,15 @@ int list_itemExists(int val) {
 if a pointer is an arguement, print it, otherwise, print entire list*/
 int list_print(struct listNode *L, int(*print)(void *)) {
 	while (L) {
+        print(L->data);
 		L = L->next;
 	}
 	return 0;
 }
 
 struct listNode * list_getTail(struct listNode *L) {
-    struct listNode *tail = NULL;
-	if (L->next) {
-		tail = list_getTail(L->next);
-        return tail;
-	}
+	if (L->next)
+        return list_getTail(L->next);
 
 	return L;
 }

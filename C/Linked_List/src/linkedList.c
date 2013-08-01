@@ -49,7 +49,12 @@ Boolean LL_addHead(List *L, void *data) {
 }
 
 Boolean LL_addTail(List *L, void *data) {
-	return 0;
+    list_addTail(L->tail, data);
+
+    if (!LL_updateTail(L))
+        return FALSE;
+
+	return TRUE;
 }
 
 Boolean LL_rmHead(List *L) {
@@ -60,11 +65,19 @@ Boolean LL_rmHead(List *L) {
 }
 
 Boolean LL_rmTail(List *L) {
-	return 0;
+    if (!L->head->next)
+        return TRUE;
+
+	list_rmTail(L->head->next, L->destroy);
+
+    if (!LL_updateTail(L))
+        return FALSE;
+
+    return TRUE;
 }
 
 int LL_length(List *L) {
-	return 0;
+    return list_length(L->head, 0);
 }
 
 Boolean LL_itemExists(List *L, void *data) {
@@ -74,16 +87,22 @@ Boolean LL_itemExists(List *L, void *data) {
 /*variable length paramters
 if a pointer is an arguement, print it, otherwise, print entire list*/
 int LL_print(List *L) {
+    if (!L->head->next)
+        return 0;
 	list_print(L->head->next, L->print);
     return 0;
 }
 
 int LL_printTail(List *L) {
+    if (!L->head->next)
+        return 0;
     L->print(L->tail->data);
     return 0;
 }
 
 int LL_printHead(List *L) {
+    if (!L->head->next)
+        return 0;
     L->print(L->head->next->data);
     return 0;
 }

@@ -35,3 +35,13 @@ int animal_print (void *node) {
 	animal *a = (animal *)node;
 	return printf("%3d, %s\n", a->awesomeness, a->name);
 }
+
+char * animal_getName (void *node) {
+	animal *a = (animal *)node;
+	return a->name;
+}
+
+int animal_getAwesomeness (void *node) {
+	animal *a = (animal *)node;
+	return a->awesomeness;
+}

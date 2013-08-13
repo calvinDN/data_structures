@@ -25,14 +25,14 @@ struct listNode * initNode(void *data){
     struct listNode *new = malloc(sizeof(struct listNode));
     new->data = data;
     new->next = NULL;
-	return new;
+    return new;
 }
 
 struct listNode * list_addHead(struct listNode *list, void *data) {
-	struct listNode *first;
+    struct listNode *first;
     first = initNode(data);
     first->next = list;
-	return first;
+    return first;
 }
 
 int list_addTail(struct listNode *tail, void *data) {

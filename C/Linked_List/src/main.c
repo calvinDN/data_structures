@@ -14,16 +14,16 @@ int main() {
 
     LL_addHead(myList, doggy);
     LL_addHead(myList, platypus);
-    LL_addHead(myList, shrimp);
+   /* LL_addHead(myList, shrimp);
     LL_addHead(myList, dalek);
-    LL_printHead(myList);
-    LL_printTail(myList);
-    LL_print(myList);
-    printf("%d\n", LL_length(myList));
+
+
     LL_rmTail(myList);
+    LL_rmTail(myList);*/
     LL_print(myList);
-    LL_printTail(myList);
-    printf("%d\n", LL_length(myList));
+    LL_rmTail(myList);
+    LL_rmTail(myList);
+    LL_rmTail(myList);
 
 	return 0;
 }

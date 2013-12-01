@@ -13,13 +13,16 @@ struct listNode *list_create() {
 }
 
 void list_destroy(struct listNode *L, void(*destroy)(void *)) {
-	if (L->next)
-		list_destroy(L->next, destroy);
-
-	destroy(L->data);
-	free(L);
-	/* need a base case here */
+    
 }
+
+void list_destroy_rec(struct listNode *L, void(*destroy)(void *)) {
+    if (L->next) list_destroy_rec(L->next, destroy);
+
+    destroy(L->data);
+    free(L);
+}
+
 
 struct listNode * initNode(void *data){
     struct listNode *new = malloc(sizeof(struct listNode));
@@ -41,28 +44,34 @@ int list_addTail(struct listNode *tail, void *data) {
 }
 
 struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *)) {
-	struct listNode *tmp;
+	struct listNode *head;
 	if (!L)
         return NULL;
 
-	tmp = L->next;
+	head = L->next;
 	destroy(L->data);
 	free(L);
-	return tmp;
+	return head;
 }
 
-int list_rmTail(struct listNode *L,  void(*destroy)(void *)) {
-    struct listNode *tmp;
+struct listNode * list_rmTail(struct listNode *L,  void(*destroy)(void *)) {
+    struct listNode *newTail = L;
 
-	while (L->next) {
-        tmp = L;
+    if (!L->next) {
+        destroy(L->data);
+        free(L);
+        return NULL;
+    }
+	
+    while (L->next) {
+        newTail = L;
         L = L->next;
     }
 
-    tmp->next = NULL;
+    newTail->next = NULL;
     destroy(L->data);
     free(L);
-    return 0;
+    return newTail;
 }
 
 int list_length(struct listNode *L, int length) {

@@ -19,6 +19,14 @@ struct listNode *list_create() {
     return newList;
 }
 
+int list_doesExist(struct listNode *L, void *data, int(*compare)(void *, void *)) {
+    if (!L->next) return -1;
+    while ((L = L->next)) {
+        if (compare(data, L->data) == 0) return 0;
+    }
+    return -1;
+}
+
 void list_addHead(struct listNode *L, void *data) {
     struct listNode* oldHead;
     if (!L->next)
@@ -75,18 +83,23 @@ void list_destroy(struct listNode *L, void(*destroy)(void *)) {
         list_removeTail(L, destroy);
     }
     free(L);
+    /*if (!L->next) free(L);
+    list_removeTail(L->next, destroy);*/
+}
+
+struct listNode *list_getTail(struct listNode *L) {
+    if (!L->next) return L;
+    list_getTail(L->next);
 }
 
 int list_length(struct listNode *L, int position) { 
-    if (L->next)
-        list_length(L->next, ++position);
-    return position;
+    if (!L->next) return position;
+    list_length(L->next, ++position);
 }
 
-/*print data*/
 void list_print(struct listNode *L, int(*print)(void *)) {
-    while (L->next) {
-        L = L->next;
+    if (!L->next) return;
+    while ((L = L->next)) {
         print(L->data);
     }
 }

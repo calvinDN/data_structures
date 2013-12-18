@@ -15,6 +15,8 @@ typedef struct LinkedList
 
 List * LL_create( int(*compare)(void *, void *), int(*print)(void *), void(*destroy)(void *) );
 
+int LL_doesExist(List *, void *);
+
 void LL_destroy(List *);
 
 void LL_addHead(List *, void *);
@@ -34,3 +36,5 @@ int LL_print(List *);
 int LL_printTail(List *L);
 
 int LL_printHead(List *L);
+
+void LL_debug(List *L);

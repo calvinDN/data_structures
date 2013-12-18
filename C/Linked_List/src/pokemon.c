@@ -16,6 +16,7 @@ pokemon *pokemon_spawn(char *name, int awesomeness) {
 	return newBorn;
 }
 
+/* TODO: Complete this */
 int pokemon_compare(void *apples, void *oranges) {
 	pokemon *a1, *a2;
 

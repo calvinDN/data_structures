@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Iinclude
 OBJDIR=./obj
-OBJ = main.o list.o pokemon.o
+OBJ = main.o list.o linkedList.o pokemon.o
 
 vpath %.c src
 vpath %.h include

@@ -1,33 +1,19 @@
-CC       = gcc
-CFLAGS   = -Wall -ansi -pedantic
-INCLUDES = -Iinclude
-BINDIR   = bin/
-SRCDIR   = src/
-OBJDIR 	 = obj/
-PROGNAME = $(BINDIR)animal
-OBJS     = $(OBJDIR)main.o $(OBJDIR)list.o $(OBJDIR)linkedList.o $(OBJDIR)animal.o
+CC=gcc
+CFLAGS=-Iinclude
+OBJDIR=./obj
+OBJ = main.o list.o pokemon.o
 
-all: link
+vpath %.c src
+vpath %.h include
 
-link: animal.o list.o linkedList.o main.o
-	$(CC) -o $(PROGNAME) $(OBJS)
+%.o: %.c %.h
+	$(CC) -c -o $@ $< $(CFLAGS)
 
-# MUSTDO: this should be replaced by one target and update appropriately
-main.o:
-	$(CC) $(CFLAGS) -c $(SRCDIR)main.c -o $(OBJDIR)main.o $(INCLUDES)
+main: $(OBJ)
+	gcc -o $@ $^ $(CFLAGS)
 
-linkedList.o:
-	$(CC) $(CFLAGS) -c $(SRCDIR)linkedList.c -o $(OBJDIR)linkedList.o $(INCLUDES)
-
-list.o:
-	$(CC) $(CFLAGS) -c $(SRCDIR)list.c -o $(OBJDIR)list.o $(INCLUDES)
-
-animal.o:
-	$(CC) $(CFLAGS) -c $(SRCDIR)animal.c -o $(OBJDIR)animal.o $(INCLUDES)
+run: main
+	@ ./main
 
 clean:
-	@ rm -f $(OBJDIR)*.o
-	@ rm -f $(BINDIR)*
-
-run: all
-	$(PROGNAME)
+	@ rm -f *.o main

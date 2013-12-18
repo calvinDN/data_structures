@@ -1,3 +1,4 @@
-TODO:
-
-[ ] no dummy node in list adt
+[ ] create
+[ ] destroy
+[ ] add
+[ ] remove

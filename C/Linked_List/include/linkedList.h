@@ -2,6 +2,8 @@
 
 typedef struct LinkedList
 {
+    int length;
+
     struct listNode *head;
     struct listNode *tail;
 
@@ -15,17 +17,17 @@ List * LL_create( int(*compare)(void *, void *), int(*print)(void *), void(*dest
 
 void LL_destroy(List *);
 
-Boolean LL_addHead(List *, void *);
+void LL_addHead(List *, void *);
 
-Boolean LL_addTail(List *, void *);
+void LL_addTail(List *, void *);
 
-Boolean LL_rmHead(List *);
+void LL_rmHead(List *);
 
-Boolean LL_rmTail(List *);
+void LL_rmTail(List *);
 
 int LL_length(List *);
 
-Boolean LL_itemExists(List *, void *);
+void LL_itemExists(List *, void *);
 
 int LL_print(List *);
 

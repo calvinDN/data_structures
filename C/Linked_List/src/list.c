@@ -1,104 +1,93 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "list.h"
-#include "animal.h" /*TEMP*/
+#include "pokemon.h"
+
+struct listNode *initNode(void *data, struct listNode *node){
+    struct listNode *newNode = calloc(1, sizeof(struct listNode));
+    newNode->data = data;
+    newNode->next = node;
+    return newNode;
+}
 
 struct listNode *list_create() {
-	struct listNode *new = calloc(1, sizeof(struct listNode));
-
-	if (!new)
-		return NULL;
-
-	return new;
-}
-
-void list_destroy(struct listNode *L, void(*destroy)(void *)) {
-    while (list_rmTail(L, destroy));
-    /*free(L);*/
-}
-
-void list_destroy_rec(struct listNode *L, void(*destroy)(void *)) {
-    if (L->next) list_destroy_rec(L->next, destroy);
-
-    destroy(L->data);
-    free(L);
-}
-
-
-struct listNode * initNode(void *data){
-    struct listNode *new = malloc(sizeof(struct listNode));
-    new->data = data;
-    new->next = NULL;
-    return new;
-}
-
-struct listNode * list_addHead(struct listNode *list, void *data) {
-    struct listNode *first;
-    first = initNode(data);
-    first->next = list;
-    return first;
-}
-
-int list_addTail(struct listNode *tail, void *data) {
-    tail->next = initNode(data);
-	return 0;
-}
-
-struct listNode * list_rmHead(struct listNode *L, void(*destroy)(void *)) {
-	struct listNode *head;
-	if (!L)
+    struct listNode *newList;
+    
+    if (!(newList = initNode(NULL, NULL)))
         return NULL;
-
-	head = L->next;
-	destroy(L->data);
-	free(L);
-	return head;
+    
+    return newList;
 }
 
-struct listNode * list_rmTail(struct listNode *L,  void(*destroy)(void *)) {
-    struct listNode *newTail = L;
+void list_addHead(struct listNode *L, void *data) {
+    struct listNode* oldHead;
+    if (!L->next)
+        L->next = initNode(data, NULL);
+    else {
+        oldHead = L->next;
+        L->next = initNode(data, oldHead);
+    }
+}
+
+void list_addTail(struct listNode *L, void *data) {
+    if (L->next)
+        list_addTail(L->next, data);
+    else
+        L->next = initNode(data, NULL);
+}
+
+/*needs to free data*/
+void list_removeTail(struct listNode *L, void(*destroy)(void *)) {
+    struct listNode* newTail = L;
 
     if (!L->next) {
-        destroy(L->data);
-        free(L);
-        return NULL;
+        return;
     }
-	
+
+    L = L->next;
     while (L->next) {
         newTail = L;
         L = L->next;
     }
-
-    newTail->next = NULL;
     destroy(L->data);
     free(L);
-    return newTail;
+    newTail->next = NULL;
 }
 
-int list_length(struct listNode *L, int length) {
+/*needs to free data*/
+void list_removeHead(struct listNode *L, void(*destroy)(void *)) {
+    struct listNode* oldHead;
+    if (!L->next)
+        return;
+
+    oldHead = L->next;
+    if (oldHead->next)
+        L->next = oldHead->next;
+    else
+        L->next = NULL;
+
+    destroy(oldHead->data);
+    free(oldHead);
+}
+
+void list_destroy(struct listNode *L, void(*destroy)(void *)) {
+    while (L->next) {
+        list_removeTail(L, destroy);
+    }
+    free(L);
+}
+
+int list_length(struct listNode *L, int position) { 
     if (L->next)
-        return list_length(L->next, ++length);
-
-	return length;
+        list_length(L->next, ++position);
+    return position;
 }
 
-int list_itemExists(int val) {
-	return 0;
-}
-
-/*variable length paramters
-if a pointer is an arguement, print it, otherwise, print entire list*/
-int list_print(struct listNode *L, int(*print)(void *)) {
-	while (L) {
+/*print data*/
+void list_print(struct listNode *L, int(*print)(void *)) {
+    while (L->next) {
+        L = L->next;
         print(L->data);
-		L = L->next;
-	}
-	return 0;
+    }
 }
 
-struct listNode * list_getTail(struct listNode *L) {
-	if (L->next)
-        return list_getTail(L->next);
-
-	return L;
-}

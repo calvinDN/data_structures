@@ -13,7 +13,8 @@ struct listNode *list_create() {
 }
 
 void list_destroy(struct listNode *L, void(*destroy)(void *)) {
-    
+    while (list_rmTail(L, destroy));
+    /*free(L);*/
 }
 
 void list_destroy_rec(struct listNode *L, void(*destroy)(void *)) {

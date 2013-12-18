@@ -12,8 +12,8 @@ int main() {
 
 	myList = LL_create(animal_compare, animal_print, animal_vaporize);
 
-    LL_addHead(myList, doggy);
-    LL_addHead(myList, platypus);
+    /*LL_addHead(myList, doggy);
+    LL_addHead(myList, platypus);*/
    /* LL_addHead(myList, shrimp);
     LL_addHead(myList, dalek);
 
@@ -21,9 +21,7 @@ int main() {
     LL_rmTail(myList);
     LL_rmTail(myList);*/
     LL_print(myList);
-    LL_rmTail(myList);
-    LL_rmTail(myList);
-    LL_rmTail(myList);
+    LL_destroy(myList);
 
 	return 0;
 }

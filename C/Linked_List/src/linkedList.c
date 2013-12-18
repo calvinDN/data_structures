@@ -25,7 +25,7 @@ List * LL_create(int(*compare)(void *, void *), int(*print)(void *), void(*destr
 }*/
 
 void LL_destroy(List *L) {
-    list_destroy(L->head, L->destroy);
+    list_destroy(L->head->next, L->destroy);
 
     free(L);
 }

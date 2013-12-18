@@ -44,7 +44,6 @@ void list_addTail(struct listNode *L, void *data) {
         L->next = initNode(data, NULL);
 }
 
-/*needs to free data*/
 void list_removeTail(struct listNode *L, void(*destroy)(void *)) {
     struct listNode* newTail = L;
 
@@ -62,7 +61,6 @@ void list_removeTail(struct listNode *L, void(*destroy)(void *)) {
     newTail->next = NULL;
 }
 
-/*needs to free data*/
 void list_removeHead(struct listNode *L, void(*destroy)(void *)) {
     struct listNode* oldHead;
     if (!L->next)
@@ -83,13 +81,16 @@ void list_destroy(struct listNode *L, void(*destroy)(void *)) {
         list_removeTail(L, destroy);
     }
     free(L);
-    /*if (!L->next) free(L);
-    list_removeTail(L->next, destroy);*/
 }
 
 struct listNode *list_getTail(struct listNode *L) {
     if (!L->next) return L;
     list_getTail(L->next);
+}
+
+struct listNode *list_getHead(struct listNode *L) {
+    if (!L->next) return L;
+    return L->next;
 }
 
 int list_length(struct listNode *L, int position) { 

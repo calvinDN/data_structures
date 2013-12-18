@@ -29,8 +29,6 @@ void LL_rmTail(List *);
 
 int LL_length(List *);
 
-void LL_itemExists(List *, void *);
-
 int LL_print(List *);
 
 int LL_printTail(List *L);

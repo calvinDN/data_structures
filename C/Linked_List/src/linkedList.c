@@ -52,30 +52,3 @@ void LL_rmTail(List *L) {
 int LL_length(List *L) {
     return list_length(L->head, 0);
 }
-
-void LL_itemExists(List *L, void *data) {}
-
-/*variable length paramters
-if a pointer is an arguement, print it, otherwise, print entire list*/
-int LL_print(List *L) {
-    return 0;
-}
-
-int LL_printTail(List *L) {
-    if (L->tail->data)
-        L->print(L->tail->data);
-    return 0;
-}
-
-int LL_printHead(List *L) {
-    if (L->head->next)
-        L->print(L->head->next->data);
-    return 0;
-}
-
-void LL_debug(List *L) {
-    printf("head: ");
-    LL_printHead(L);
-    printf("tail: ");
-    LL_printTail(L);
-}

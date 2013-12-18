@@ -15,6 +15,8 @@ void list_removeTail(struct listNode *L, void(*destroy)(void *));
 
 void list_removeHead(struct listNode *L, void(*destroy)(void *));
 
+struct listNode * list_getHead(struct listNode *L);
+
 struct listNode * list_getTail(struct listNode *L);
 
 void list_destroy(struct listNode *L, void(*destroy)(void *));

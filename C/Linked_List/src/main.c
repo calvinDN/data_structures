@@ -16,13 +16,9 @@ int main() {
     LL_addHead(L, bulbasaur);
     LL_addTail(L, squirtle);
     LL_addTail(L, charmander);
-    printf("%d\n", LL_doesExist(L, charmander));
-    /*LL_debug(L);
-    LL_rmTail(L);
-    printf("%d\n", LL_length(L));
     LL_rmTail(L);
     printf("-\n");
     LL_debug(L);
-    LL_destroy(L);*/
+    LL_destroy(L);
     return 0;
 }

@@ -1,4 +1,1 @@
-[ ] create
-[ ] destroy
-[ ] add
-[ ] remove
+Stack

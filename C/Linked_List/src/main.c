@@ -17,8 +17,6 @@ int main() {
     LL_addTail(L, squirtle);
     LL_addTail(L, charmander);
     LL_rmTail(L);
-    printf("-\n");
-    LL_debug(L);
     LL_destroy(L);
     return 0;
 }
